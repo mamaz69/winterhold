@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header ('Delete Category Failed')}"></header>
+<main>
+    <div class="fail-container">
+        <p>Ada <span th:text="${dependencies}"></span> data buku ditemukan, dimana masuk ke dalam category ini.</p>
+        <p>Anda tidak bisa menghapus category ini. dimana data-data buku tersebut masih kebergantungan dengan category ini.</p>
+    </div>
+    <a class="blue-button" th:href="@{/category}">Back to index</a>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

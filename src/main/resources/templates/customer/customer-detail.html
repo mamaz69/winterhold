@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header ('Customer > Biodata')}"></header>
+<main>
+    <div class="grid-container">
+        <section class="header-info" th:object="${detail}">
+            <div>Membership Number : <span th:text="*{membershipNumber}"></span></div>
+            <div>Full Name : <span th:text="*{fullName}"></span></div>
+            <div>Birth Date : <span th:text="*{birthDate}"></span></div>
+            <div>Gender : <span th:text="*{gender}"></span></div>
+            <div>Phone : <span th:text="*{phone}"></span></div>
+            <div>Address : <span th:text="*{address}"></span></div>
+        </section>
+        <a class="blue-button" th:href="@{/customer}">Back to customer index</a>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

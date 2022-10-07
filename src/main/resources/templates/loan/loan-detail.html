@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header ('Loan > Detail')}"></header>
+<main>
+    <div class="grid-container">
+        <h1>Book</h1>
+        <section class="header-info" th:object="${bookDetail}">
+            <div>Title : <span th:text="*{title}"></span></div>
+            <div>Category : <span th:text="*{categoryName}"></span></div>
+            <div>Author : <span th:text="*{authorName}"></span></div>
+            <div>Floor : <span th:text="*{floor}"></span></div>
+            <div>Isle : <span th:text="*{isle}"></span></div>
+            <div>Bay : <span th:text="*{bay}"></span></div>
+        </section>
+    </div>
+    <div class="grid-container">
+        <h1>Customer</h1>
+        <section class="header-info" th:object="${customerDetail}">
+            <div>Membership Number : <span th:text="*{membershipNumber}"></span></div>
+            <div>Full Name : <span th:text="*{fullName}"></span></div>
+            <div>Phone: <span th:text="*{phone}"></span></div>
+            <div>Expire Date: <span th:text="*{membershipExpireDate}"></span></div>
+        </section>
+    </div>
+    <div class="grid-container">
+        <a class="blue-button" th:href="@{/loan}">Back to loan</a>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (Customer)}"></header>
+<main class="customer-index">
+    <div class="grid-container">
+        <form method="get" class="filter" th:attr="action=@{/customer}">
+            <input type="text" name="membershipNumber" placeholder="Number..." th:attr="value=${membershipNumber}">
+            <input type="text" name="name" placeholder="Name..." th:attr="value=${name}">
+            <button class="blue-button" type="submit">Search</button>
+        </form>
+        <a class="blue-button create-button" th:href="@{/customer/insertForm}">Add Customer</a>
+        <table>
+            <thead>
+            <tr>
+                <th>Action</th>
+                <th>Membership Number</th>
+                <th>Full Name</th>
+                <th>Expired Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${grid}" th:object="${customer}">
+                <td >
+                    <a class="blue-button update-button" th:href="@{/customer/updateForm(membershipNumber=*{membershipNumber})}">Edit</a>
+                    <a class="blue-button delete-button" th:href="@{/customer/delete(membershipNumber=*{membershipNumber})}">Delete</a>
+                    <a class="blue-button delete-button" th:href="@{/customer/extend(membershipNumber=*{membershipNumber})}">Extend</a>
+                </td>
+                <td >
+                    <a  th:href="@{/customer/detail(membershipNumber=*{membershipNumber})}" th:text="*{membershipNumber}"></a>
+                </td>
+                <td th:text="*{fullName}"></td>
+                <td th:text="*{membershipExpireDate}"></td>
+
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a th:if="${currentPage>1}"
+                               th:href="@{/customer(page=${currentPage-1},membershipNumber=${membershipNumber},name=${name})}" th:text="'<'"></a>
+                            <a th:if="${totalPages>0}" th:each="loop:${#numbers.sequence(1, totalPages)}"
+                               th:href="@{/customer(page=${loop},membershipNumber=${membershipNumber},name=${name})}"
+                               th:text="${loop}"></a>
+                            <a th:if="${currentPage<totalPages}"
+                               th:href="@{/customer(page=${currentPage+1},membershipNumber=${membershipNumber},name=${name})}" th:text="'>'"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

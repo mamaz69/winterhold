@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header (Category)}"></header>
+<main class="category-index">
+    <div class="grid-container">
+        <form method="get" class="filter" th:attr="action=@{/category}">
+            <input type="text" name="name" placeholder="Name..." th:attr="value=${name}">
+            <button class="blue-button" type="submit">Search</button>
+        </form>
+        <a class="blue-button create-button" th:href="@{/category/insertForm}">Add Category</a>
+        <table>
+            <thead>
+            <tr>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Floor</th>
+                <th>Isle</th>
+                <th>Bay</th>
+                <th>Total Books</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${grid}" th:object="${category}">
+                <td >
+                    <a class="blue-button detail-button" th:href="@{/category/detail(name=*{name})}">Books</a>
+                    <a class="blue-button update-button" th:href="@{/category/updateForm(name=*{name})}">Edit</a>
+                    <a class="blue-button delete-button" th:href="@{/category/delete(name=*{name})}">Delete</a>
+                </td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{floor}"></td>
+                <td th:text="*{isle}"></td>
+                <td th:text="*{bay}"></td>
+                <td th:text="*{totalBooks}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a th:if="${currentPage>1}"
+                               th:href="@{/category(page=${currentPage-1},name=${name})}" th:text="'<'"></a>
+                            <a th:if="${totalPages>0}" th:each="loop:${#numbers.sequence(1, totalPages)}"
+                               th:href="@{/category(page=${loop},name=${name})}"
+                               th:text="${loop}"></a>
+                            <a th:if="${currentPage<totalPages}"
+                               th:href="@{/category(page=${currentPage+1},name=${name})}" th:text="'>'"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

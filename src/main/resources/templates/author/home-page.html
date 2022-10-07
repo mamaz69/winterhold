@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header(Home)}"></header>
+<main>
+    <div>
+    <h1 align="center">Winterhold Library</h1>
+    <p align="center">
+        Knowledge is the best weapon you have, please</br>
+        find some fascinating books we have.</br>
+        This app will help you do that, as long as you</br>
+        keep extend your membership!</br>
+        (its totally free!)
+    </p>
+    </div>
+    <div class="company-logo" align="center">
+        <img th:src="@{/resources/image/logo.png}" alt="Winterhold" />
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>

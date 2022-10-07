@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{layout :: navigation}"></nav>
+<header th:replace="~{layout :: header ('Category > Books')}"></header>
+<main>
+    <div class="grid-container">
+        <a class="blue-button" th:href="@{/category}">Back to category</a>
+    <form method="get" class="filter" th:attr="action=@{/category/detail}">
+            <input type="hidden" name="name" th:attr="value=${header.name}">
+            <input type="text" name="title" placeholder="Title..." th:attr="value=${title}">
+            <input type="text" name="authorName" placeholder="Author..." th:attr="value=${authorName}">
+            <button class="blue-button" type="submit">Search</button>
+        </form>
+        <h3 th:text="'List of '+${header.name}+ ' Books'"></h3>
+        <a class="blue-button create-button" th:href="@{/category/insertDetailForm(name=${header.name})}" th:text="'Add ' +${header.name}+' Book'"></a>
+        <table>
+            <thead>
+            <tr>
+                <th>Action</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Is Borrowed</th>
+                <th>Release Date</th>
+                <th>Total Page</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${grid}" th:object="${book}">
+                <td>
+                    <a class="blue-button update-button" th:href="@{/category/updateDetailForm(code=*{code})}">Edit</a>
+                    <a class="blue-button delete-button" th:href="@{/category/deleteDetail(code=*{code})}">Delete</a>
+                </td>
+                <td th:text="*{title}"></td>
+                <td th:text="*{authorName}"></td>
+                <td th:text="*{borrowed}"></td>
+                <td th:text="*{releaseDate}"></td>
+                <td th:text="*{totalPage}"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div th:text="|page ${currentPage} of ${totalPages}|"></div>
+                        <div>
+                            <a th:if="${totalPages>0}" th:each="loop:${#numbers.sequence(1, totalPages)}"
+                               th:href="@{/category/detail(page=${loop},name=${header.name},title=${title},authorName=${authorName})}"
+                               th:text="${loop}"></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{layout :: footer}"></footer>
+</body>
+</html>
